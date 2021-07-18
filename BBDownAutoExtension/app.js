@@ -7,8 +7,8 @@ let settings = JSON.parse(jsonRaw);
 var time_setting = '0 */' + settings.interval + ' * * * *';
 var j = schedule.scheduleJob(time_setting, async function () {
     var arg = buildArg();
-    DebugPrint(arg)
-    var bangumiLists = await bangumiList;
+    DebugPrint(arg);
+    var bangumiLists = await bangumiList();
     DebugPrint(bangumiLists)
     bangumiLists.forEach(element => DebugPrint(element))
     bangumiLists.forEach(element => executeProcess(arg, element))
@@ -108,21 +108,22 @@ function buildArg() {
     return argc;
 }
 
-var bangumiList = new Promise((resolve, reject) => { 
-    fs.readFile('list.txt', 'utf8', async function (err, data) {
-        if (err) throw err;
-        console.log('正在讀取: ' + 'list.txt');
-        var list = data.split(/[\r\n]+/);
-        list = list.filter(function (entry) { return /\S/.test(entry); });
-        list = list.filter(function (comment) {
-            return comment.toLowerCase().indexOf("#") == -1;
+async function bangumiList() {
+    return new Promise((resolve, reject) => {
+        fs.readFile('list.txt', 'utf8', function (err, data) {
+            if (err) throw err;
+            console.log('正在讀取: ' + 'list.txt');
+            var list = data.split(/[\r\n]+/);
+            list = list.filter(function (entry) { return /\S/.test(entry); });
+            list = list.filter(function (comment) {
+                return comment.toLowerCase().indexOf("#") == -1;
+            });
+            DebugPrint(list);
+            console.log('已添加 ' + list.length + '個任務')
+            resolve(list);
         });
-        DebugPrint(list);
-        console.log('已添加 ' + list.length + '個任務')
-        resolve(list);
-        return list;
     });
-})
+}
 
 function executeProcess(arg, bangumiList) {
     exec('BBDown.exe ' + arg + ' ' + bangumiList,{ encoding: 'buffer' }, (err, stdout, stderr) => {

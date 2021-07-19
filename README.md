@@ -1,7 +1,7 @@
 # BBDownAutoExtension
 
 
-#Config.json 設置
+# Config.json 設置
 
 ```
 {
@@ -34,13 +34,13 @@
  "access_token": false #設置access_token用以下載TV/APP接口的會員內容, 設置為false為不設定
 }
 ```
-#cookie.txt
+# cookie.txt
 ```
 SESSDATA=xxxxxx%xxxxxxxxx%xxxxxxx%xxxx
 #BBDown.exe login 命令行取得的cookie
 
 ```
-#list.txt (一行一個影片網址, 如果哪一行 #號在最前面後面哪一行的內容將不會讀取)
+# list.txt (一行一個影片網址, 如果哪一行 #號在最前面後面哪一行的內容將不會讀取)
 ```
 #小林家的龍女僕S（僅限港澳台地區）
 https://www.bilibili.com/bangumi/play/ep408841

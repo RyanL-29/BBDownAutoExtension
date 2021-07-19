@@ -45,3 +45,16 @@ SESSDATA=xxxxxx%xxxxxxxxx%xxxxxxx%xxxx
 #小林家的龍女僕S（僅限港澳台地區）
 https://www.bilibili.com/bangumi/play/ep408841
 ```
+
+使用流程
+
+ Step1: 請下載 [BBDownCore](https://github.com/RyanL-29/BBDown/releases)
+ Step2: 請下載 [BBDownEX](https://github.com/RyanL-29/BBDownAutoExtension/releases)
+ Step3: 下載下來後把所有東西放在同一個資料夾
+ Step4: 你資料夾內的東西應該和以下圖片一樣
+![image](https://user-images.githubusercontent.com/48479346/126116001-b11e190f-5eb2-4bdf-8df4-1a40d97bb3b7.png)
+
+ Step5: 設置config.json
+ Step6: 使用take_cookie.bat, 取得SESSDATA, 取得的內容將會自動寫到cookie.txt
+ Step7: 設定list.txt, 把你想下載的影片網址全部放進去, 請依照上面的教學設置
+ Step8: 按BBDownAutoCore.exe, 啟動自動程式

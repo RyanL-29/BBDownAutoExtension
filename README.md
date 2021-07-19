@@ -1,4 +1,4 @@
-# BBDownAutoExtension
+# BBDownAutoExtension (此程式並不能單獨使用, 需配合 [BBDown](https://github.com/RyanL-29/BBDown/tree/master) 放在同一個資料夾內一併使用)
 
 
 # Config.json 設置

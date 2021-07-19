@@ -52,6 +52,7 @@ https://www.bilibili.com/bangumi/play/ep408841
  Step2: 請下載 [BBDownEX](https://github.com/RyanL-29/BBDownAutoExtension/releases)
  Step3: 下載下來後把所有東西放在同一個資料夾
  Step4: 你資料夾內的東西應該和以下圖片一樣
+ 
 ![image](https://user-images.githubusercontent.com/48479346/126116001-b11e190f-5eb2-4bdf-8df4-1a40d97bb3b7.png)
 
  Step5: 設置config.json

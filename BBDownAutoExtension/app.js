@@ -77,7 +77,7 @@ function buildArg() {
         argc += "--sub-only" + " "
     }
 
-    if (settings.zerofill == true) {
+    if (settings.zerofill == false) {
         argc += "--no-padding-page-num" + " "
     }
 
@@ -113,11 +113,24 @@ async function bangumiList() {
         fs.readFile('list.txt', 'utf8', function (err, data) {
             if (err) throw err;
             console.log('正在讀取: ' + 'list.txt');
-            var list = data.split(/[\r\n]+/);
+            var list = data.replace(/[^\S\r\n]/g, '');
+            list = list.split(/[\r\n]+/);
+            var outpath = "";
             list = list.filter(function (entry) { return /\S/.test(entry); });
+            list.forEach(function (part, index) {
+                if (this[index].indexOf("@") > -1) {
+                    if (this[index].split("@")[1] != "") {
+                        outpath = "-o " + this[index].split("@")[1] + " ";
+                        DebugPrint(outpath);
+                    }
+                }
+
+                this[index] = outpath + this[index].split("#")[0];
+            }, list);
             list = list.filter(function (comment) {
-                return comment.toLowerCase().indexOf("#") == -1;
+                return comment.toLowerCase().indexOf("@") == -1;
             });
+            DebugPrint(list);
             DebugPrint(list);
             console.log('已添加 ' + list.length + '個任務')
             resolve(list);

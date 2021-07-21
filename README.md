@@ -40,11 +40,22 @@ SESSDATA=xxxxxx%xxxxxxxxx%xxxxxxx%xxxx
 #BBDown.exe login 命令行取得的cookie
 
 ```
-# list.txt (一行一個影片網址, 如果哪一行 #號在最前面後面哪一行的內容將不會讀取)
+# list.txt 
+一行一個影片網址, 如果哪一行 #號後面的內容將不會讀取
+@後面為分類資料夾名稱
 ```
-#小林家的龍女僕S（僅限港澳台地區）
-https://www.bilibili.com/bangumi/play/ep408841
+@2020-7
+https://www.bilibili.com/bangumi/play/ep398591 # 龍先生，想要買個家。（僅限港澳台地區）
+
+@2021-5
+https://www.bilibili.com/bangumi/play/ep398532 # 大運動會 ReSTART！（僅限港澳台地區）
+
+@
+https://www.bilibili.com/bangumi/play/ep398461 # 入間同學入魔了！ 第二季（僅限港澳台地區）
+
 ```
+上面表示將會把 龍先生，想要買個家。（僅限港澳台地區） 放在2020-7資料夾裏, 將 大運動會 ReSTART！（僅限港澳台地區） 放在2021-5資料夾裏, 入間同學入魔了！ 第二季（僅限港澳台地區） 不分類, 直接放在番劇目錄下 (靈感和這個導覽取自 aniGamerPlus)
+
 
 # 使用流程
 

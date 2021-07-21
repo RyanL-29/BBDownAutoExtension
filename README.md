@@ -6,8 +6,8 @@
 ```
 {
  "dir": "C:/Users/Ryan/Desktop/test", #影片存放位置
- "prefix": "[Test]", #檔名前綴
- "suffix": "[Test][Test]", #檔名後綴
+ "prefix": "[Test]", #檔名前綴 (在檔案名最前方)
+ "suffix": "[Test][Test]", #檔名後綴 (在影片解像度後面)
  "UserAgent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36", #User Agent (如非必要請不要修改)
  "debug": false, #BBDownAutoExtension 除錯選項
  "interval": 1, #更新檢查間距, 單位為分鐘 (最少為1, 少於1會設定為1)

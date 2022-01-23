@@ -6,7 +6,11 @@
   "author": {
     "name": "Ryan"
   },
+  "scripts": {
+    "build": "pkg app.js --compress Brotli --targets node12-win-x64"
+  },
   "dependencies": {
+    "async": "^3.2.3",
     "child_process": "^1.0.2",
     "iconv-lite": "^0.6.3",
     "node-schedule": "^2.0.0",

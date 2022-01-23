@@ -1,18 +1,32 @@
-const schedule = require('node-schedule');
+// const schedule = require('node-schedule');
 const { exec } = require('child_process');
 const iconvLite = require('iconv-lite');
+const async = require('async');
 const fs = require('fs');
 let jsonRaw = fs.readFileSync('config.json');
 let settings = JSON.parse(jsonRaw);
-var time_setting = '0 */' + settings.interval + ' * * * *';
-var j = schedule.scheduleJob(time_setting, async function () {
+
+scheduleJob();
+
+const job = setInterval(() =>{
+    scheduleJob();
+}, settings.interval* 60000)
+
+function scheduleJob() {
     var arg = buildArg();
     DebugPrint(arg);
-    var bangumiLists = await bangumiList();
-    DebugPrint(bangumiLists)
-    bangumiLists.forEach(element => DebugPrint(element))
-    bangumiLists.forEach(element => executeProcess(arg, element))
-})
+    const process = []
+    bangumiList((err, bangumiLists)=>{
+        DebugPrint(bangumiLists)
+        bangumiLists.forEach(element => DebugPrint(element))
+        bangumiLists.forEach(element => process.push((callback) => {executeProcess(arg, element, callback)}))
+        async.series(process, (err, cb)=>{
+            if (err) {console.error(err)}
+        })
+    })
+}
+
+// })
 
 function buildArg() {
     let jsonRaw = fs.readFileSync('config.json');
@@ -108,44 +122,42 @@ function buildArg() {
     return argc;
 }
 
-async function bangumiList() {
-    return new Promise((resolve, reject) => {
-        fs.readFile('list.txt', 'utf8', function (err, data) {
-            if (err) throw err;
-            console.log('正在讀取: ' + 'list.txt');
-            var list = data.replace(/[^\S\r\n]/g, '');
-            list = list.split(/[\r\n]+/);
-            var outpath = "";
-            list = list.filter(function (entry) { return /\S/.test(entry); });
-            list.forEach(function (part, index) {
-                if (this[index].indexOf("@") > -1) {
-                    if (this[index].split("@")[1] != "") {
-                        outpath = "-o " + this[index].split("@")[1] + " ";
-                        DebugPrint(outpath);
-                    }
+function bangumiList(callback) {
+    fs.readFile('list.txt', 'utf8', function (err, data) {
+        if (err) throw err;
+        console.log('正在讀取: ' + 'list.txt');
+        var list = data.replace(/[^\S\r\n]/g, '');
+        list = list.split(/[\r\n]+/);
+        var outpath = "";
+        list = list.filter(function (entry) { return /\S/.test(entry); });
+        list.forEach(function (part, index) {
+            if (this[index].indexOf("@") > -1) {
+                if (this[index].split("@")[1] != "") {
+                    outpath = "-o " + this[index].split("@")[1] + " ";
+                    DebugPrint(outpath);
                 }
-
-                this[index] = outpath + this[index].split("#")[0];
-            }, list);
-            list = list.filter(function (comment) {
-                return comment.toLowerCase().indexOf("@") == -1;
-            });
-            DebugPrint(list);
-            DebugPrint(list);
-            console.log('已添加 ' + list.length + '個任務')
-            resolve(list);
+            }
+            this[index] = outpath + this[index].split("#")[0];
+        }, list);
+        list = list.filter(function (comment) {
+            return comment.toLowerCase().indexOf("@") == -1;
         });
+        DebugPrint(list);
+        DebugPrint(list);
+        console.log('已添加 ' + list.length + '個任務')
+        callback(null,list);
     });
 }
 
-function executeProcess(arg, bangumiList) {
+function executeProcess(arg, bangumiList, callback) {
     exec('BBDown.exe ' + arg + ' ' + bangumiList,{ encoding: 'buffer' }, (err, stdout, stderr) => {
         if (err) {
+            callback(err);
             console.error(err);
             return;
         }
         console.log(`stdout: ${iconvLite.decode(stdout, 'Big5')}`);
-        //console.log(stdout);
+        callback(null)
     });
 }
 

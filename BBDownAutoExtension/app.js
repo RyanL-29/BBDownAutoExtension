@@ -1,6 +1,4 @@
-// const schedule = require('node-schedule');
 const { exec } = require('child_process');
-const iconvLite = require('iconv-lite');
 const async = require('async');
 const fs = require('fs');
 let jsonRaw = fs.readFileSync('config.json');
@@ -150,13 +148,13 @@ function bangumiList(callback) {
 }
 
 function executeProcess(arg, bangumiList, callback) {
-    exec('BBDown.exe ' + arg + ' ' + bangumiList,{ encoding: 'buffer' }, (err, stdout, stderr) => {
+    exec('BBDown.exe ' + arg + ' ' + bangumiList, {maxBuffer: 1024 * 10000}, (err, stdout, stderr) => {
         if (err) {
             callback(err);
             console.error(err);
             return;
         }
-        console.log(`stdout: ${iconvLite.decode(stdout, 'Big5')}`);
+        console.log(stdout);
         callback(null)
     });
 }

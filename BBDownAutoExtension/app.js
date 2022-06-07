@@ -1,6 +1,7 @@
 const { exec } = require('child_process');
 const async = require('async');
 const fs = require('fs');
+const logger = require('./utility/log')
 let jsonRaw = fs.readFileSync('config.json');
 let settings = JSON.parse(jsonRaw);
 
@@ -151,10 +152,10 @@ function executeProcess(arg, bangumiList, callback) {
     exec('BBDown.exe ' + arg + ' ' + bangumiList, {maxBuffer: 1024 * 10000}, (err, stdout, stderr) => {
         if (err) {
             callback(err);
-            console.error(err);
+            logger.LogError(err);
             return;
         }
-        console.log(stdout);
+        logger.LogInfo(stdout);
         callback(null)
     });
 }

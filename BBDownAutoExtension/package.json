@@ -7,9 +7,13 @@
     "name": "Ryan"
   },
   "dependencies": {
+    "archiver": "^5.3.1",
     "async": "^3.2.3",
     "child_process": "^1.0.2",
-    "fs": "^0.0.1-security"
+    "dotenv": "^16.0.1",
+    "fs": "^0.0.1-security",
+    "util": "^0.12.4",
+    "yargs": "^17.5.1"
   },
   "scripts": {
     "build": "pkg ./app.js --compress Brotli --targets node16-win -o BBDownAutoExtension"

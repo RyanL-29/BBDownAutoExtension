@@ -17,10 +17,13 @@ function scheduleJob() {
     const process = []
     bangumiList((err, bangumiLists)=>{
         DebugPrint(bangumiLists)
-        bangumiLists.forEach(element => DebugPrint(element))
-        bangumiLists.forEach(element => process.push((callback) => {executeProcess(arg, element, callback)}))
-        async.series(process, (err, cb)=>{
-            if (err) {console.error(err)}
+        bangumiLists.forEach(element => {
+            DebugPrint(element)
+            process.push((callback) => {executeProcess(arg, element, callback)})
+        })
+        async.series(process).then(results => {
+        }).catch(err => {
+            logger.LogError(err)
         })
     })
 }
@@ -151,9 +154,8 @@ function bangumiList(callback) {
 function executeProcess(arg, bangumiList, callback) {
     exec('BBDown.exe ' + arg + ' ' + bangumiList, {maxBuffer: 1024 * 10000}, (err, stdout, stderr) => {
         if (err) {
-            callback(err);
             logger.LogError(err);
-            return;
+            return callback(err);
         }
         logger.LogInfo(stdout);
         callback(null)

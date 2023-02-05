@@ -28,8 +28,6 @@ function scheduleJob() {
     })
 }
 
-// })
-
 function buildArg() {
     let jsonRaw = fs.readFileSync('config.json');
     let settings = JSON.parse(jsonRaw)
@@ -125,7 +123,7 @@ function buildArg() {
 }
 
 function bangumiList(callback) {
-    fs.readFile('list.txt', 'utf8', function (err, data) {
+    fs.readFile(settings.list_file_path, 'utf8', function (err, data) {
         if (err) throw err;
         console.log('正在讀取: ' + 'list.txt');
         var list = data.replace(/[^\S\r\n]/g, '');

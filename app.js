@@ -125,7 +125,7 @@ function buildArg() {
 function bangumiList(callback) {
     fs.readFile(settings.list_file_path, 'utf8', function (err, data) {
         if (err) throw err;
-        console.log('正在讀取: ' + 'list.txt');
+        console.log('正在讀取: ' + settings.list_file_path);
         var list = data.replace(/[^\S\r\n]/g, '');
         list = list.split(/[\r\n]+/);
         var outpath = "";
